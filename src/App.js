@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { Provider } from 'react-redux';
 // routes
 import Router from './routes';
 // theme

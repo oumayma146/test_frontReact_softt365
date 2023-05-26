@@ -1,15 +1,29 @@
-import ReactDOM from 'react-dom/client';
-
-//
+import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
-
+import { Provider } from 'react-redux';
+import montantReducer from './store/reducer/montant'
+import mensualiteReducer from './store/reducer/mensualite'
+import { combineReducers} from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 // ----------------------------------------------------------------------
+const rootReducer = combineReducers({
+    montant:montantReducer,
+    mensualite:mensualiteReducer
+    
+   })
+const store = configureStore({reducer:rootReducer}, (compose(applyMiddleware(thunk))))
+const rootElement = document.getElementById('root');
+createRoot(rootElement).render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(<App />);
 
 // If you want to enable client cache, register instead.
 serviceWorker.unregister();
