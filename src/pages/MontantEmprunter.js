@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Modal from '../pages/Modal';
-import MensualiteFrom from '../pages/FormAddMensualité';
-import ArticleIcon from '@mui/icons-material/Article';
+import Modal from './Modal';
 import { AddMontant, getMontant } from '../store/action/montant';
 import FormAddMontant from './FormAddMontant';
 const useStyles = makeStyles((theme) => ({
@@ -52,13 +50,9 @@ const MontantEmprunter = () => {
 
   return (
     <>
-     
-    
           <Card className={classes.table}>
-          
-           
               <Button className={classes.iconButton} onClick={() => setVisible(!visible)} variant="contained">
-                ADD
+              Ajouter Montant Emprunter
               </Button>
               <Modal title={'Add new Montant'} visible={visible} setVisible={setVisible}>
                 <FormAddMontant
@@ -69,10 +63,7 @@ const MontantEmprunter = () => {
                   addHandler={() => addMontantHandler()}
                 />
               </Modal>
-           
           </Card>
-     
-      
       <Table className={classes.table} align="middle" hover responsive>
         <TableHead>
           <TableRow>

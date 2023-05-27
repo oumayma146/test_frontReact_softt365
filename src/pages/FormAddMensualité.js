@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCapital } from '../store/action/montant';
 import Select from 'react-select';
 import { Button, FormControl, FormControlLabel, FormLabel, Input, Grid } from '@mui/material';
+import { defaultsDeep } from 'lodash';
 
 export default function FormAddMensualité({
     duree,
     setDuree,
     capital,
     setCapital,
-    taux_interet_annuel,
-    setTauxInteretAnnuel,
+    taux,
+    setTaux,
   addHandler
 }) {
     const dispatch = useDispatch()
@@ -20,12 +21,14 @@ export default function FormAddMensualité({
   const Capital = useSelector((state) => state.montant.NewCapitaList);
  
   const formattedCapital = Capital.map((elem) => {
-    return { value: elem.id, label: elem.montant_brut }
+    return { value: elem.montant_brut, label: elem.montant_brut }
   })
 
-
   const addTauxHandler = (e) => {
-    setTauxInteretAnnuel(e.target.value);
+    setTaux(e.target.value);
+  };
+  const addcapitalHandler = (e) => {
+    setCapital(e.target.value);
   };
   const addDureeHandler = (e) => {
     setDuree(e.target.value);
@@ -37,7 +40,7 @@ export default function FormAddMensualité({
   return (
     <FormControl component="form" className="row g-3" onSubmit={onSubmit}>
       <Grid item md={6}>
-        <FormLabel htmlFor="inputName">Capital</FormLabel>
+        <FormLabel>Capital</FormLabel>
         <Select
           defaultValue={capital}
           onChange={setCapital}
@@ -60,7 +63,7 @@ export default function FormAddMensualité({
         <FormLabel>Taux Intéret Annuel</FormLabel>
         <Input
           type="number"
-          value={taux_interet_annuel}
+          value={taux}
           onInput={(e) => addTauxHandler(e)}
           id="validationDefault03"
           required

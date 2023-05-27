@@ -10,25 +10,23 @@ export const getMensualite = () => {
     };
   
 }
-export const AddMensualite= (duree,taux,capital) => {
+export const AddMensualite= (duree,capital,taux) => {
     return async () =>{
         let formData  = new FormData();
         formData.append("duree", duree);
-        formData.append("taux_interet_annuel",taux);
         formData.append("capital",capital);
-        console.log(formData);
+        formData.append("taux_interet_annuel",taux);
         const response = await axios({
             method: "POST",
             url: `http://127.0.0.1:8000/api/monsualite`,
              data: formData,
              "Content-Type": "multipart/form-data" 
             })
-    
     };
 }
 export const getTable = (id) => {
     return async (dispatch,getState) =>{
         const response = await axios.get(`http://127.0.0.1:8000/api/table/${id}`)
-        dispatch({type:TABLE,payload:{table:response.data}});
+        dispatch({type:TABLE,payload:{table:response.data}});  
     };
 }

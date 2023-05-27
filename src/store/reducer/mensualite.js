@@ -2,7 +2,8 @@ import {TABLE,MENSUALITE} from "../action/mensualite";
 const initialState = {
    List:[],
    NewList:[],
-   Table:[],
+   table:[],
+   
 }
 const mensualiteReducer = (state = initialState, action) =>{
     switch (action.type) {
@@ -18,8 +19,8 @@ const mensualiteReducer = (state = initialState, action) =>{
                 return {
                  
                     ...state,
-                    Table: action.payload.table,
-    
+                    table: action.payload.table,
+                 
                 };
         default:
             return state;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AddMensualite,getMensualite, getTable } from '../store/action/mensualite';
 import { Button, Card, CardHeader,  Stack,Typography, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Modal from '../pages/Modal';
+import Modal from './Modal';
 import MensualiteFrom from '../pages/FormAddMensualité';
 import ArticleIcon from '@mui/icons-material/Article';
 import TableModal from './TableModal';
@@ -15,15 +15,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  inputGroup: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-  },
-  addButton: {
-    marginRight: 'auto',
-  },
   iconButton: {
-    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -42,7 +35,7 @@ const Mensualite = () => {
   const [capital, setCapital] = useState();
   const [table, setTable] = useState(false)
   const addMonsualiteHandler = () => {
-    dispatch(AddMensualite(duree,taux,capital)).then(() => {
+    dispatch(AddMensualite(duree,capital.value,taux)).then(() => {
       dispatch(getMensualite());
       setVisible(false);
       setDuree();
@@ -58,29 +51,22 @@ const Mensualite = () => {
   }
   return (
     <>
-     
-    
-          <Card className={classes.table}>
-          
-           
+            <Card className={classes.table}>
               <Button className={classes.iconButton} onClick={() => setVisible(!visible)} variant="contained">
-                ADD
+                Ajouter Mensualité
               </Button>
               <Modal title={'Add new Monsualité'} visible={visible} setVisible={setVisible}>
                 <MensualiteFrom
                   setDuree={setDuree}
                   setCapital={setCapital}
-                  setTauxInteretAnnuel={setTaux}
+                  setTaux={setTaux}
                   duree={duree}
-                  taux_interet_annuel={taux}
+                  taux={taux}
                   capital={capital}
                   addHandler={() => addMonsualiteHandler()}
                 />
               </Modal>
-           
-          </Card>
-     
-      
+           </Card>  
       <Table className={classes.table} align="middle" hover responsive>
         <TableHead>
           <TableRow>
@@ -102,14 +88,14 @@ const Mensualite = () => {
                 <TableCell>{elem.taux_interet_menseul}</TableCell>
                 <TableCell>{elem.mensualite}</TableCell>
                 <TableCell>
-                  <Button color="primary"  onClick={() => openTableModal(elem.id)}>
-                    <ArticleIcon />
+                  <Button color="primary" onClick={() => openTableModal(elem.id)}>
+                    <ArticleIcon/>
                     <TableModal
                         table={table}
                         setTable={setTable}
                         id={elem.id}
-                      />
-                  </Button>
+                      ></TableModal>
+                 </Button>
                 </TableCell>
               </TableRow>
             );

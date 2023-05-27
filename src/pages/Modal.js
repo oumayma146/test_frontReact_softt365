@@ -1,23 +1,26 @@
 import React from 'react';
-import {Button ,Modal, Box,Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 
-export default function CustomModal({ title, visible, setVisible, children, addHandler, size }) {
+export default function Modal({ title, visible, setVisible, children, addHandler, size }) {
   return (
-   
-    <Modal open={visible} onClose={() => setVisible(false)} aria-labelledby="modal-title" >
-       <Box >
-      <div className={size ? "sm" : "xl"}>
-        <Typography variant="h6" component="h2" id="modal-title">
-          {title}
-        </Typography>
-        {children}
-      </div>
-      <Button variant="contained"  onClose={() => setVisible(true)}>
-            close
-      </Button>
-      </Box>
-    </Modal>
-    
+    <Dialog open={visible} onClose={() => setVisible(false)} fullWidth={false} maxWidth={size ? "sm" : "xl"}>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>{children}</DialogContent>
+      <DialogActions>
+        <Button  color="secondary" onClick={() => setVisible(false)}>
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
+
+
+
+
+
 
